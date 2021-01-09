@@ -3,25 +3,34 @@ body {
   background: white !important;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .navbar-default .navbar-brand {
-   color: black;
+   color: #97db7b;
    font-weight: bold;
+   font-size: 40px;
+   font-family: "Papyrus", "Lucida", monospace;
+   margin-right: 1em;
 }
 
 .navbar-default {
-  background: #259f60;
+  background: #448828;
 }
 
 .navbar-nav > li > a {
-    color: white !important;
+  color: white !important;
+  padding-top: 5px !important; 
   font-weight: bold;
   font-size: 20px;
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .navbar-nav > li > a, .navbar-brand {
- padding-top:10px !important; 
- padding-bottom:10 !important;
+ padding-top: 0px !important; 
+ padding-bottom: 5 !important;
  height: 70px;
 }
 .navbar {min-height:70px !important;}
@@ -30,12 +39,22 @@ body {
   color: black;
   font-weight: bold;
   font-size: 20px;
-  background-color: #115544 !important;
+  background-color: #2b601a !important;
 }
 
-.container-fluid {
-  padding-left: 0px;
-  padding-right: 0px;
+.navbar-nav > li > a {
+  padding-top: 25px !important; 
+};
+
+.wall {
+	padding: 3em !important; 
+	margin: 15px;
+}
+
+.right-col {
+  box-shadow: 4px 3px 8px 1px #969696;
+  -webkit-box-shadow: 4px 3px 8px 1px #969696;
+	padding: 20px;
 }
 
 .boxes {
@@ -43,20 +62,8 @@ body {
 }
 
 .wall {
-  box-shadow: 4px 3px 8px 1px #969696;
-  -webkit-box-shadow: 4px 3px 8px 1px #969696;
-	padding: 10px;
+	padding: 2em !important; 
 	margin: 15px;
-}
-
-.right-col {
-  box-shadow: 4px 3px 8px 1px #969696;
-  -webkit-box-shadow: 4px 3px 8px 1px #969696;
-	padding: 10px;
-}
-
-.boxes {
-  border-radius: 15px;
 }
 
 .form {

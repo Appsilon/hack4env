@@ -10,3 +10,12 @@ find_row_in_data <- function(dat, lon, lat){
     NULL
   }
 }
+
+combined_string_to_df <- function(comb_string){
+  tmp <- strsplit(comb_string, split=', ')
+  tmp <- as.data.frame(t(data.frame(strsplit(tmp[[1]], split = ' '))))
+  colnames(tmp)<- c("rodzaj", "ilosc")
+  rownames(tmp) <- NULL
+  tmp$ilosc <- as.numeric(tmp$ilosc)
+  tmp
+}

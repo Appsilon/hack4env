@@ -11,10 +11,11 @@ library(glue)
 library(lubridate)
 library(DT)
 library(reactable)
+library(plotly)
 
 source("utils.R")
 
-consts <- config::get(file = "constants.yml")
+#consts <- config::get(file = "constants.yml")
 
 data <- load_thrash_data("data/data_with_cluster_uuids.csv")
 
@@ -36,3 +37,5 @@ mock_data_people <- data.frame(
            'images/faceicon4.png',
            'images/faceicon3.png')
 )
+
+mock_data_companies <- read.csv("data/companies.csv")
