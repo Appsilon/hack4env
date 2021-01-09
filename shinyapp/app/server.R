@@ -1,9 +1,16 @@
+pal <- colorFactor(c("blue", "red"), domain = c("True", "False"))
+
+
 server <- function(input, output, session) {
+  
+  selected_cluster <- reactiveVal()
+  
   output$map <- renderLeaflet({
-    leaflet(data = data) %>%
+    leaflet(data = data_cluster) %>%
       addProviderTiles("Esri.WorldStreetMap") %>%
-      addMarkers(~lon, ~lat, popup = ~paste("<h3>", result_string,
-                                            "</h3><img src ='", filename, "' width='50' height='100'/>"),
+      addCircleMarkers(~center_lon, ~center_lat,
+                 popup = ~paste("Pojedyncze śmieci", singular, "<br/>Wiele śmieci",plural),
+                 color = ~pal(is_dump),
                  clusterOptions = markerClusterOptions()) %>%
       setView(lng = 20, lat = 50, zoom = 3.5)
   })
@@ -11,16 +18,21 @@ server <- function(input, output, session) {
   observe({
     click <- input$map_marker_click
     req(click)
-    output$info <- renderText({
-      unlist(click)
+    sel_row <- find_row_in_data(data_cluster, click$lng, click$lat)
+    selected_cluster(sel_row)
+    output$put_button <- renderUI({
+      actionButton("put", "Pokaż śmieci z klastra", icon = icon("map-pin"), width = "200px")
     })
-    
-    leafletProxy(mapId = "map") %>%
-      addCircleMarkers(lat = click$lat + 0.1, lng = click$lat - 0.1)
+  })
+  
+  selected_data <- reactive({
+    req(selected_cluster())
+    data %>% filter(cluster_uuid == selected_cluster()$cluster_uuid)
   })
   
   output$tab_trash <- DT::renderDataTable({
-    head(data)
+    req(selected_data())
+    selected_data() %>% select(Pojedyncze = singular, Wiele = plural, Kategorie = result_string)
   }, server = FALSE, selection = 'single')
   
   observeEvent(input$tab_trash_rows_selected, {
@@ -28,9 +40,36 @@ server <- function(input, output, session) {
     req(sel_row)
     print(sel_row)
     output$thrashimage <- renderUI({
-      imgurl <- head(data)$filename[[sel_row]]
+      req(length(selected_data()$filename) >= sel_row)
+      imgurl <- selected_data()$filename[[sel_row]]
       print("img")
       tags$img(src = imgurl, width = "200px")
+    })
+  })
+  
+  observeEvent(input$put, {
+    leafletProxy(mapId = "map") %>%
+      addMarkers(data = selected_data(), lat = ~lat, lng = ~lon)
+  })
+  
+  output$tab_shame <- renderReactable({
+    reactable(mock_data_people, columns = list(
+      Foto = colDef(cell = function(value, index) {
+        tags$img(src = value, height = "50px")
+      })
+    )
+    )
+  })
+  
+  observeEvent(selected_cluster(), {
+    output$form <- renderUI({
+      tagList(
+        h2("Chcę pomóc!"),
+        textInput("name", "Imię", width = "80%"),
+        textInput("name2", "Nazwisko", width = "80%"),
+        textInput("cluster", "Wysypisko", value = selected_cluster()$cluster_uuid, width = "80%"),
+        actionButton("submit", "Zgłoś chęć posprzątania", icon = icon("people-carry"))
+      )
     })
   })
   

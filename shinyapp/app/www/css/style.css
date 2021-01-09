@@ -9,7 +9,14 @@ body {
 }
 
 .navbar-default {
-  background: #c6efa8;
+  background: #259f60;
+}
+
+.navbar-nav > li > a {
+    color: white !important;
+  font-weight: bold;
+  font-size: 20px;
+    background-color: transparent;
 }
 
 .navbar-nav > li > a, .navbar-brand {
@@ -23,14 +30,37 @@ body {
   color: black;
   font-weight: bold;
   font-size: 20px;
-  background-color: #9bc16b;
-}
-
-.navbar-nav > .active > a:hover {
-  background-color: #119955;
+  background-color: #115544 !important;
 }
 
 .container-fluid {
   padding-left: 0px;
   padding-right: 0px;
+}
+
+.boxes {
+  border-radius: 15px;
+}
+
+.wall {
+  box-shadow: 4px 3px 8px 1px #969696;
+  -webkit-box-shadow: 4px 3px 8px 1px #969696;
+	padding: 10px;
+	margin: 15px;
+}
+
+.right-col {
+  box-shadow: 4px 3px 8px 1px #969696;
+  -webkit-box-shadow: 4px 3px 8px 1px #969696;
+	padding: 10px;
+}
+
+.boxes {
+  border-radius: 15px;
+}
+
+.form {
+    box-shadow: 4px 3px 8px 1px #969696;
+  	-webkit-box-shadow: 4px 3px 8px 1px #969696;
+  	padding: 20px;
 }
