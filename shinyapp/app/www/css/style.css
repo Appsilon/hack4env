@@ -2,3 +2,35 @@ body {
   margin: 0 !important;
   background: white !important;
 }
+
+.navbar-default .navbar-brand {
+   color: black;
+   font-weight: bold;
+}
+
+.navbar-default {
+  background: #c6efa8;
+}
+
+.navbar-nav > li > a, .navbar-brand {
+ padding-top:10px !important; 
+ padding-bottom:10 !important;
+ height: 70px;
+}
+.navbar {min-height:70px !important;}
+
+.navbar-nav > .active > a {
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #9bc16b;
+}
+
+.navbar-nav > .active > a:hover {
+  background-color: #119955;
+}
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}

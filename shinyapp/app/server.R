@@ -1,14 +1,3 @@
-tab_js <- "
-function(table) {
-  table.on('click.dt', 'tr', function() {
-    table.$('tr.selected').removeClass('selected');
-    $(this).toggleClass('selected');            
-    Shiny.onInputChange('rows',
-                        table.rows('.selected').data()[0][0]);
-  });
-}
-"
-
 server <- function(input, output, session) {
   output$map <- renderLeaflet({
     leaflet(data = data) %>%
@@ -38,12 +27,11 @@ server <- function(input, output, session) {
     sel_row <- input$tab_trash_rows_selected
     req(sel_row)
     print(sel_row)
-    output$image <- renderUI({
+    output$thrashimage <- renderUI({
       imgurl <- head(data)$filename[[sel_row]]
       print("img")
       tags$img(src = imgurl, width = "200px")
     })
-    
   })
   
 }
